@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องคำนวณ | ระบบเครื่องมือคำนวณ</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">ระบบคำนวณ</a>
+            </div>
+            <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="calculator.html" class="active">เครื่องคำนวณ</a></li>
+                    <li><a href="manual.html">คู่มือการใช้งาน</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="calculator-container">
+            <h1>เครื่องคำนวณ</h1>
+
+            <div class="form-group">
+                <label for="number1">ตัวเลขที่ 1</label>
+                <input type="number" id="number1" placeholder="กรอกตัวเลขที่ 1" step="any">
+            </div>
+
+            <div class="form-group">
+                <label for="number2">ตัวเลขที่ 2</label>
+                <input type="number" id="number2" placeholder="กรอกตัวเลขที่ 2" step="any">
+            </div>
+
+            <div style="display: flex; gap: 1rem;">
+                <button type="button" class="btn btn-primary" onclick="calculate()" style="flex: 2;">
+                    คำนวณ
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="clearForm()" style="flex: 1;">
+                    ล้าง
+                </button>
+            </div>
+
+            <div class="result-box" id="result-box">
+                <h3>ผลลัพธ์การคำนวณ</h3>
+                <div class="result-value" id="result-value">0</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 ระบบเครื่องมือคำนวณภายในองค์กร</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
