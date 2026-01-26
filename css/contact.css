@@ -1,0 +1,146 @@
+/* Contact Page Styles */
+.contact-page {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.contact-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.contact-header h1 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.contact-header p {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+.contact-content {
+    display: flex;
+    justify-content: center;
+}
+
+.contact-card {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+.contact-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--primary-color);
+}
+
+.contact-card h2 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+
+.contact-list {
+    text-align: left;
+    margin-bottom: 2rem;
+}
+
+.contact-person {
+    padding: 1.25rem;
+    background: var(--bg-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.2s ease;
+}
+
+.contact-person:last-child {
+    margin-bottom: 0;
+}
+
+.contact-person:hover {
+    background: var(--cream);
+}
+
+.person-name {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.person-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.person-phone svg {
+    color: var(--secondary-color);
+    flex-shrink: 0;
+}
+
+.contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    background: var(--primary-color);
+    border-radius: 8px;
+    margin-top: 0.5rem;
+}
+
+.contact-email svg {
+    color: rgba(255,255,255,0.8);
+}
+
+.contact-email a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.contact-email:hover {
+    background: var(--secondary-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-page {
+        padding: 1rem;
+    }
+
+    .contact-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .contact-card {
+        padding: 1.5rem;
+    }
+
+    .contact-person {
+        padding: 1rem;
+    }
+
+    .contact-email {
+        width: 100%;
+        justify-content: center;
+    }
+}
