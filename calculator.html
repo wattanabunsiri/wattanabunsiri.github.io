@@ -31,15 +31,15 @@
             <form id="impactForm">
                 <!-- Section A -->
                 <section class="form-section">
-                    <h2>A. เลือกแนวทางการรายงาน</h2>
+                    <h2>เลือกแนวทางการรายงาน</h2>
                     <div class="checkbox-group">
                         <label class="checkbox-label">
                             <input type="radio" name="reportType" value="yearly" id="a1">
-                            <span>A1. รายงานเป็นรายปี</span>
+                            <span>รายงานเป็นรายปี</span>
                         </label>
                         <label class="checkbox-label">
                             <input type="radio" name="reportType" value="5years" id="a2">
-                            <span>A2. รวมรายงาน 5 ปี หรือ 60 เดือน</span>
+                            <span>รวมรายงาน 5 ปี หรือ 60 เดือน</span>
                         </label>
                     </div>
                 </section>
@@ -49,48 +49,48 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionB" onchange="toggleSection('B'); toggleExclusive('B')">
-                            <span>B. ผู้รับบริการลดการนำเข้าจากต่างประเทศ</span>
+                            <span>ผู้รับบริการลดการนำเข้าจากต่างประเทศ</span>
                         </label>
-                        <span class="note">(เลือกหัวข้อนี้จะไม่สามารถเลือก C-G ได้)</span>
+                        <span class="note">(เลือกหัวข้อนี้จะไม่สามารถเลือกมิติ Impact อื่นได้)</span>
                     </div>
                     <div class="section-content" id="contentB" style="display: none;">
                         <div class="form-row">
-                            <label>B1. มูลค่าสินค้า/แอปพลิเคชัน/บริการจากต่างประเทศ</label>
+                            <label>มูลค่าสินค้า/แอปพลิเคชัน/บริการจากต่างประเทศ</label>
                             <div class="input-group">
                                 <input type="number" id="b1" onchange="calculateB()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>B2. มูลค่าสินค้า/แอปพลิเคชัน/บริการของเนคเทค</label>
+                            <label>มูลค่าสินค้า/แอปพลิเคชัน/บริการของเนคเทค</label>
                             <div class="input-group">
                                 <input type="number" id="b2" onchange="calculateB()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>B3. มูลค่าที่ประหยัดได้ (B1-B2)</label>
+                            <label>มูลค่าที่ประหยัดได้</label>
                             <div class="input-group">
                                 <input type="text" id="b3" readonly>
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>B4. สัดส่วนเปรียบเทียบคุณสมบัติ</label>
+                            <label>สัดส่วนเปรียบเทียบคุณสมบัติ</label>
                             <div class="input-group">
                                 <input type="number" id="b4" min="0" max="100" onchange="calculateB()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>B5. จำนวนสินค้าที่ทดแทน</label>
+                            <label>จำนวนสินค้าที่ทดแทน</label>
                             <div class="input-group">
                                 <input type="number" id="b5" onchange="calculateB()" placeholder="0">
                                 <span class="unit">ชิ้น</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>B6. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="b6" onchange="calculateB(); checkOther('b6')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -113,14 +113,14 @@
                             <div class="other-note" id="b6_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>B7. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="b7" min="0" max="100" onchange="calculateB()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>B8. มูลค่า Pre-Impact (B3×B4×B5×B6×B7)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="b8" readonly>
                                 <span class="unit">บาท</span>
@@ -134,47 +134,47 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionC" onchange="toggleSection('C')">
-                            <span>C. ผู้รับบริการมีกำไร/รายได้เพิ่มขึ้น</span>
+                            <span>ผู้รับบริการมีกำไร/รายได้เพิ่มขึ้น</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentC" style="display: none;">
                         <div class="form-row">
-                            <label>C1. รายได้ก่อนใช้ผลงาน</label>
+                            <label>รายได้ก่อนใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="c1" onchange="calculateC()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>C2. ต้นทุนก่อนใช้ผลงาน</label>
+                            <label>ต้นทุนก่อนใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="c2" onchange="calculateC()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>C3. รายได้หลังใช้ผลงาน</label>
+                            <label>รายได้หลังใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="c3" onchange="calculateC()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>C4. ต้นทุนหลังใช้ผลงาน</label>
+                            <label>ต้นทุนหลังใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="c4" onchange="calculateC()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>C5. กำไรเพิ่ม ((C3-C4)-(C1-C2))</label>
+                            <label>กำไรเพิ่ม</label>
                             <div class="input-group">
                                 <input type="text" id="c5" readonly>
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>C6. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="c6" onchange="calculateC(); checkOther('c6')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -197,14 +197,14 @@
                             <div class="other-note" id="c6_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>C7. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="c7" min="0" max="100" onchange="calculateC()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>C8. มูลค่า Pre-Impact (C5×C6×C7)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="c8" readonly>
                                 <span class="unit">บาท</span>
@@ -218,33 +218,33 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionD" onchange="toggleSection('D')">
-                            <span>D. ผู้รับบริการประหยัดค่าใช้จ่าย/ลดต้นทุน</span>
+                            <span>ผู้รับบริการประหยัดค่าใช้จ่าย/ลดต้นทุน</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentD" style="display: none;">
                         <div class="form-row">
-                            <label>D1. ค่าใช้จ่าย/ต้นทุนก่อนใช้ผลงาน</label>
+                            <label>ค่าใช้จ่าย/ต้นทุนก่อนใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="d1" onchange="calculateD()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>D2. ค่าใช้จ่าย/ต้นทุนหลังใช้ผลงาน</label>
+                            <label>ค่าใช้จ่าย/ต้นทุนหลังใช้ผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="d2" onchange="calculateD()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>D3. ค่าใช้จ่าย/ต้นทุนที่ลดลง (D1-D2)</label>
+                            <label>ค่าใช้จ่าย/ต้นทุนที่ลดลง</label>
                             <div class="input-group">
                                 <input type="text" id="d3" readonly>
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>D4. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="d4" onchange="calculateD(); checkOther('d4')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -267,14 +267,14 @@
                             <div class="other-note" id="d4_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>D5. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="d5" min="0" max="100" onchange="calculateD()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>D6. มูลค่า Pre-Impact (D3×D4×D5)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="d6" readonly>
                                 <span class="unit">บาท</span>
@@ -288,75 +288,75 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionE" onchange="toggleSection('E')">
-                            <span>E. ผู้รับบริการมีประสิทธิภาพในการทำงานเพิ่มสูงขึ้น</span>
+                            <span>ผู้รับบริการมีประสิทธิภาพในการทำงานเพิ่มสูงขึ้น</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentE" style="display: none;">
                         <div class="form-row">
-                            <label>E1. เงินเดือนของพนักงาน (ที่ปฏิบัติงานเกี่ยวข้องกับผลงาน)</label>
+                            <label>เงินเดือนของพนักงาน (ที่ปฏิบัติงานเกี่ยวข้องกับผลงาน)</label>
                             <div class="input-group">
                                 <input type="number" id="e1" onchange="calculateE()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>E2. จำนวนชั่วโมงการทำงานต่อวัน (ไม่รวมพักกลางวัน)</label>
+                            <label>จำนวนชั่วโมงการทำงานต่อวัน (ไม่รวมพักกลางวัน)</label>
                             <div class="input-group">
                                 <input type="number" id="e2" onchange="calculateE()" placeholder="0">
                                 <span class="unit">ชั่วโมง</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>E3. คิดเป็นนาทีต่อวัน (E2×60)</label>
+                            <label>คิดเป็นนาทีต่อวัน</label>
                             <div class="input-group">
                                 <input type="text" id="e3" readonly>
                                 <span class="unit">นาที</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>E4. คิดเป็นนาทีต่อเดือน (E3×20)</label>
+                            <label>คิดเป็นนาทีต่อเดือน</label>
                             <div class="input-group">
                                 <input type="text" id="e4" readonly>
                                 <span class="unit">นาที</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>E5. มูลค่าการทำงานต่อ 1 นาที (E1/E4)</label>
+                            <label>มูลค่าการทำงานต่อ 1 นาที</label>
                             <div class="input-group">
                                 <input type="text" id="e5" readonly>
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>E6. ระยะเวลาก่อนใช้ผลงานเนคเทค</label>
+                            <label>ระยะเวลาก่อนใช้ผลงานเนคเทค</label>
                             <div class="input-group">
                                 <input type="number" id="e6" onchange="calculateE()" placeholder="0">
                                 <span class="unit">นาที</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>E7. ระยะเวลาหลังใช้ผลงานเนคเทค</label>
+                            <label>ระยะเวลาหลังใช้ผลงานเนคเทค</label>
                             <div class="input-group">
                                 <input type="number" id="e7" onchange="calculateE()" placeholder="0">
                                 <span class="unit">นาที</span>
                             </div>
                         </div>
                         <div class="form-row calculated">
-                            <label>E8. ระยะเวลาการทำงานที่ลดลง (E6-E7)</label>
+                            <label>ระยะเวลาการทำงานที่ลดลง</label>
                             <div class="input-group">
                                 <input type="text" id="e8" readonly>
                                 <span class="unit">นาที</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>E9. จำนวนครั้งที่ใช้ผลงานต่อปี</label>
+                            <label>จำนวนครั้งที่ใช้ผลงานต่อปี</label>
                             <div class="input-group">
                                 <input type="number" id="e9" onchange="calculateE()" placeholder="0">
                                 <span class="unit">ครั้ง</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>E10. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="e10" onchange="calculateE(); checkOther('e10')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -379,14 +379,14 @@
                             <div class="other-note" id="e10_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>E11. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="e11" min="0" max="100" onchange="calculateE()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>E12. มูลค่า Pre-Impact (E5×E8×E9×E10×E11)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="e12" readonly>
                                 <span class="unit">บาท</span>
@@ -400,33 +400,33 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionF" onchange="toggleSection('F')">
-                            <span>F. ลดความเสี่ยงในการสูญเสีย/ป้องกันความเสียหายในการทำงาน</span>
+                            <span>ลดความเสี่ยงในการสูญเสีย/ป้องกันความเสียหายในการทำงาน</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentF" style="display: none;">
                         <div class="form-row">
-                            <label>F1. มูลค่าความเสียหายในอดีตที่เคยเกิดขึ้น</label>
+                            <label>มูลค่าความเสียหายในอดีตที่เคยเกิดขึ้น</label>
                             <div class="input-group">
                                 <input type="number" id="f1" onchange="calculateF()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>F2. โอกาสที่จะเกิดความเสียหาย</label>
+                            <label>โอกาสที่จะเกิดความเสียหาย</label>
                             <div class="input-group">
                                 <input type="number" id="f2" min="0" max="100" onchange="calculateF()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>F3. ระดับความรุนแรงของความเสียหาย</label>
+                            <label>ระดับความรุนแรงของความเสียหาย</label>
                             <div class="input-group">
                                 <input type="number" id="f3" min="0" max="100" onchange="calculateF()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>F4. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="f4" onchange="calculateF(); checkOther('f4')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -449,14 +449,14 @@
                             <div class="other-note" id="f4_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>F5. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="f5" min="0" max="100" onchange="calculateF()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>F6. มูลค่า Pre-Impact (F1×F2×F3×F4×F5)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="f6" readonly>
                                 <span class="unit">บาท</span>
@@ -470,26 +470,26 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionG" onchange="toggleSection('G')">
-                            <span>G. ผู้รับบริการมีทักษะเพิ่มขึ้นจากการฝึกอบรม</span>
+                            <span>ผู้รับบริการมีทักษะเพิ่มขึ้นจากการฝึกอบรม</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentG" style="display: none;">
                         <div class="form-row">
-                            <label>G1. จำนวนผู้เข้าอบรมที่มีทักษะเพิ่มขึ้น</label>
+                            <label>จำนวนผู้เข้าอบรมที่มีทักษะเพิ่มขึ้น</label>
                             <div class="input-group">
                                 <input type="number" id="g1" onchange="calculateG()" placeholder="0">
                                 <span class="unit">คน</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>G2. ราคาคอร์สอบรมเทียบเคียง</label>
+                            <label>ราคาคอร์สอบรมเทียบเคียง</label>
                             <div class="input-group">
                                 <input type="number" id="g2" onchange="calculateG()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>G3. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="g3" onchange="calculateG(); checkOther('g3')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -512,14 +512,14 @@
                             <div class="other-note" id="g3_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>G4. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="g4" min="0" max="100" onchange="calculateG()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>G5. มูลค่า Pre-Impact (G1×G2×G3×G4)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="g5" readonly>
                                 <span class="unit">บาท</span>
@@ -533,19 +533,19 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionH" onchange="toggleSection('H')">
-                            <span>H. ผู้รับบริการมีการลงทุนวิจัยต่อยอด</span>
+                            <span>ผู้รับบริการมีการลงทุนวิจัยต่อยอด</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentH" style="display: none;">
                         <div class="form-row">
-                            <label>H1. มูลค่าการลงทุนวิจัยต่อยอด</label>
+                            <label>มูลค่าการลงทุนวิจัยต่อยอด</label>
                             <div class="input-group">
                                 <input type="number" id="h1" onchange="calculateH()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>H2. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="h2" onchange="calculateH(); checkOther('h2')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -568,14 +568,14 @@
                             <div class="other-note" id="h2_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>H3. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="h3" min="0" max="100" onchange="calculateH()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>H4. มูลค่า Pre-Impact (H1×H2×H3)</label>
+                            <label>มูลค่า Pre-Investment</label>
                             <div class="input-group">
                                 <input type="text" id="h4" readonly>
                                 <span class="unit">บาท</span>
@@ -589,19 +589,19 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionI" onchange="toggleSection('I')">
-                            <span>I. ผู้รับบริการมีการลงทุนในกระบวนการผลิตและบริการ</span>
+                            <span>ผู้รับบริการมีการลงทุนในกระบวนการผลิตและบริการ</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentI" style="display: none;">
                         <div class="form-row">
-                            <label>I1. มูลค่าการลงทุนในกระบวนการผลิตและบริการ</label>
+                            <label>มูลค่าการลงทุนในกระบวนการผลิตและบริการ</label>
                             <div class="input-group">
                                 <input type="number" id="i1" onchange="calculateI()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>I2. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="i2" onchange="calculateI(); checkOther('i2')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -624,14 +624,14 @@
                             <div class="other-note" id="i2_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>I3. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="i3" min="0" max="100" onchange="calculateI()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>I4. มูลค่า Pre-Impact (I1×I2×I3)</label>
+                            <label>มูลค่า Pre-Investment</label>
                             <div class="input-group">
                                 <input type="text" id="i4" readonly>
                                 <span class="unit">บาท</span>
@@ -645,26 +645,26 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionJ" onchange="toggleSection('J')">
-                            <span>J. ผู้รับบริการมีการจ้างงานเพิ่ม</span>
+                            <span>ผู้รับบริการมีการจ้างงานเพิ่ม</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentJ" style="display: none;">
                         <div class="form-row">
-                            <label>J1. มูลค่าการจ้างงานเพิ่มต่อปี</label>
+                            <label>มูลค่าการจ้างงานเพิ่มต่อปี</label>
                             <div class="input-group">
                                 <input type="number" id="j1" onchange="calculateJ()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>J2. FTE ที่ปฏิบัติงานเกี่ยวข้องกับผลงาน</label>
+                            <label>FTE ที่ปฏิบัติงานเกี่ยวข้องกับผลงาน</label>
                             <div class="input-group">
                                 <input type="number" id="j2" min="0" max="100" onchange="calculateJ()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>J3. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="j3" onchange="calculateJ(); checkOther('j3')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -687,14 +687,14 @@
                             <div class="other-note" id="j3_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>J4. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="j4" min="0" max="100" onchange="calculateJ()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>J5. มูลค่า Pre-Impact (J1×J2×J3×J4)</label>
+                            <label>มูลค่า Pre-Investment</label>
                             <div class="input-group">
                                 <input type="text" id="j5" readonly>
                                 <span class="unit">บาท</span>
@@ -708,19 +708,19 @@
                     <div class="section-header">
                         <label class="checkbox-label main-checkbox">
                             <input type="checkbox" id="sectionK" onchange="toggleSection('K')">
-                            <span>K. อื่น ๆ เปรียบเทียบสิ่งที่เกิดขึ้นก่อน-หลังใช้ผลงานวิจัย</span>
+                            <span>อื่น ๆ เปรียบเทียบสิ่งที่เกิดขึ้นก่อน-หลังใช้ผลงานวิจัย</span>
                         </label>
                     </div>
                     <div class="section-content" id="contentK" style="display: none;">
                         <div class="form-row">
-                            <label>K1. มูลค่า...(ระบุ)...</label>
+                            <label>มูลค่า...(ระบุ)...</label>
                             <div class="input-group">
                                 <input type="number" id="k1" onchange="calculateK()" placeholder="0">
                                 <span class="unit">บาท</span>
                             </div>
                         </div>
                         <div class="form-row">
-                            <label>K2. กิจกรรมส่งมอบหลักของผลงาน</label>
+                            <label>กิจกรรมส่งมอบหลักของผลงาน</label>
                             <select id="k2" onchange="calculateK(); checkOther('k2')">
                                 <option value="">-- เลือกกิจกรรม --</option>
                                 <option value="1">รับจ้างวิจัย (1)</option>
@@ -743,14 +743,14 @@
                             <div class="other-note" id="k2_note" style="display: none;">กรุณาหารือเพิ่มเติม</div>
                         </div>
                         <div class="form-row">
-                            <label>K3. Contribution (จากผู้รับบริการ)</label>
+                            <label>Contribution (จากผู้รับบริการ)</label>
                             <div class="input-group">
                                 <input type="number" id="k3" min="0" max="100" onchange="calculateK()" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
                         </div>
                         <div class="form-row result">
-                            <label>K4. มูลค่า Pre-Impact (K1×K2×K3)</label>
+                            <label>มูลค่า Pre-Impact</label>
                             <div class="input-group">
                                 <input type="text" id="k4" readonly>
                                 <span class="unit">บาท</span>
@@ -770,7 +770,7 @@
                         </div>
                     </div>
                     <div class="form-row total-result">
-                        <label>มูลค่า Pre-Investment รวมทั้งหมด (H+I+J)</label>
+                        <label>มูลค่า Pre-Investment รวมทั้งหมด</label>
                         <div class="input-group">
                             <input type="text" id="totalInvestment" readonly value="0">
                             <span class="unit">บาท</span>

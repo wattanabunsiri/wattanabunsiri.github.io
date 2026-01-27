@@ -318,16 +318,16 @@ function calculateTotal() {
 
 // Section titles mapping
 const sectionTitles = {
-    'B': 'B. ผู้รับบริการลดการนำเข้าจากต่างประเทศ',
-    'C': 'C. ผู้รับบริการมีกำไร/รายได้เพิ่มขึ้น',
-    'D': 'D. ผู้รับบริการประหยัดค่าใช้จ่าย/ลดต้นทุน',
-    'E': 'E. ผู้รับบริการมีประสิทธิภาพในการทำงานเพิ่มสูงขึ้น',
-    'F': 'F. ลดความเสี่ยงในการสูญเสีย/ป้องกันความเสียหาย',
-    'G': 'G. ผู้รับบริการมีทักษะเพิ่มขึ้นจากการฝึกอบรม',
-    'H': 'H. ผู้รับบริการมีการลงทุนวิจัยต่อยอด',
-    'I': 'I. ผู้รับบริการมีการลงทุนในกระบวนการผลิตและบริการ',
-    'J': 'J. ผู้รับบริการมีการจ้างงานเพิ่ม',
-    'K': 'K. อื่น ๆ เปรียบเทียบสิ่งที่เกิดขึ้นก่อน-หลังใช้ผลงานวิจัย'
+    'B': 'ผู้รับบริการลดการนำเข้าจากต่างประเทศ',
+    'C': 'ผู้รับบริการมีกำไร/รายได้เพิ่มขึ้น',
+    'D': 'ผู้รับบริการประหยัดค่าใช้จ่าย/ลดต้นทุน',
+    'E': 'ผู้รับบริการมีประสิทธิภาพในการทำงานเพิ่มสูงขึ้น',
+    'F': 'ลดความเสี่ยงในการสูญเสีย/ป้องกันความเสียหาย',
+    'G': 'ผู้รับบริการมีทักษะเพิ่มขึ้นจากการฝึกอบรม',
+    'H': 'ผู้รับบริการมีการลงทุนวิจัยต่อยอด',
+    'I': 'ผู้รับบริการมีการลงทุนในกระบวนการผลิตและบริการ',
+    'J': 'ผู้รับบริการมีการจ้างงานเพิ่ม',
+    'K': 'อื่น ๆ เปรียบเทียบสิ่งที่เกิดขึ้นก่อน-หลังใช้ผลงานวิจัย'
 };
 
 // Field labels mapping
@@ -449,7 +449,7 @@ function generateReport() {
 
     if (reportType) {
         html += '<div class="report-section">';
-        html += '<h3>A. แนวทางการรายงาน</h3>';
+        html += '<h3>แนวทางการรายงาน</h3>';
         html += '<div class="report-section-content">';
         html += '<div class="report-item"><span class="label">รูปแบบการรายงาน</span><span class="value">' + reportType + '</span></div>';
         html += '</div></div>';
@@ -500,7 +500,7 @@ function generateReport() {
     html += '<div class="report-total">';
     html += '<div class="report-total-title">สรุปผลการประเมิน</div>';
     html += '<div class="report-item"><span class="label">มูลค่า Pre-Impact รวมทั้งหมด</span><span class="value">' + totalImpact + ' บาท</span></div>';
-    html += '<div class="report-item"><span class="label">มูลค่า Pre-Investment รวมทั้งหมด (H+I+J)</span><span class="value">' + totalInvestment + ' บาท</span></div>';
+    html += '<div class="report-item"><span class="label">มูลค่า Pre-Investment รวมทั้งหมด</span><span class="value">' + totalInvestment + ' บาท</span></div>';
     html += '</div>';
 
     // Show modal
