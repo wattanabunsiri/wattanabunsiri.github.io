@@ -45,18 +45,7 @@
     left: 0;
     width: 4px;
     height: 100%;
-}
-
-.definition-card.impact::before {
     background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
-}
-
-.definition-card.dimensions::before {
-    background: linear-gradient(180deg, var(--accent-color), #C4A574);
-}
-
-.definition-card.investment::before {
-    background: linear-gradient(180deg, var(--secondary-color), var(--accent-color));
 }
 
 .definition-card:hover {
@@ -72,21 +61,8 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
-}
-
-.definition-card.impact .card-icon {
     background: linear-gradient(135deg, rgba(93, 78, 55, 0.1), rgba(139, 115, 85, 0.1));
     color: var(--primary-color);
-}
-
-.definition-card.dimensions .card-icon {
-    background: linear-gradient(135deg, rgba(166, 139, 91, 0.1), rgba(196, 165, 116, 0.1));
-    color: var(--accent-color);
-}
-
-.definition-card.investment .card-icon {
-    background: linear-gradient(135deg, rgba(139, 115, 85, 0.1), rgba(166, 139, 91, 0.1));
-    color: var(--secondary-color);
 }
 
 .definition-card h2 {
@@ -105,7 +81,7 @@
 
 .highlight-box {
     background: var(--cream);
-    border-left: 3px solid var(--accent-color);
+    border-left: 3px solid var(--primary-color);
     padding: 1rem 1.25rem;
     border-radius: 0 8px 8px 0;
     margin-top: 1rem;
@@ -291,13 +267,6 @@
 }
 
 /* Investment Types Section */
-.definition-card.investment-types h2 {
-    font-size: 1.6rem;
-    margin-bottom: 0.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--border-color);
-}
-
 .investment-type-list {
     display: flex;
     flex-direction: column;
@@ -349,7 +318,7 @@
 }
 
 .type-badge {
-    background: var(--accent-color);
+    background: var(--secondary-color);
     color: var(--white);
     padding: 0.35rem 0.75rem;
     border-radius: 20px;

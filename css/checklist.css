@@ -37,6 +37,17 @@
     border: 1px solid var(--border-color);
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
+}
+
+.checklist-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
 }
 
 .section-title {
@@ -168,7 +179,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
-    background: var(--accent-color);
+    background: var(--primary-color);
     color: var(--white);
     text-decoration: none;
     border-radius: 8px;
@@ -178,7 +189,7 @@
 }
 
 .btn-link:hover {
-    background: var(--primary-color);
+    background: var(--secondary-color);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(93, 78, 55, 0.2);
 }
@@ -192,7 +203,7 @@
 
 .info-box {
     background: var(--bg-color);
-    border-left: 3px solid var(--accent-color);
+    border-left: 3px solid var(--primary-color);
     padding: 1rem 1.25rem;
     border-radius: 0 8px 8px 0;
 }

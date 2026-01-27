@@ -74,7 +74,7 @@ nav a {
 nav a:hover,
 nav a.active {
     color: var(--primary-color);
-    border-bottom-color: var(--accent-color);
+    border-bottom-color: var(--primary-color);
 }
 
 /* Mobile menu button */
@@ -131,14 +131,28 @@ main {
 .feature-card {
     background: var(--white);
     padding: 2rem;
-    border-radius: 4px;
+    border-radius: 12px;
     text-align: center;
     border: 1px solid var(--border-color);
-    transition: border-color 0.2s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
 }
 
 .feature-card:hover {
     border-color: var(--secondary-color);
+    box-shadow: 0 8px 30px rgba(93, 78, 55, 0.12);
+    transform: translateY(-2px);
 }
 
 .feature-card .icon {
@@ -166,8 +180,20 @@ main {
     margin: 0 auto;
     background: var(--white);
     padding: 2.5rem;
-    border-radius: 4px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.calculator-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
 }
 
 .calculator-container h1 {
@@ -244,7 +270,7 @@ main {
     padding: 1.5rem;
     background-color: var(--cream);
     border-radius: 4px;
-    border-left: 3px solid var(--accent-color);
+    border-left: 3px solid var(--primary-color);
     display: none;
 }
 
@@ -269,8 +295,20 @@ main {
 .manual-container {
     background: var(--white);
     padding: 2.5rem;
-    border-radius: 4px;
+    border-radius: 12px;
     border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.manual-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
 }
 
 .manual-container h1 {
@@ -310,10 +348,11 @@ main {
     border-radius: 4px;
     padding: 1rem 1.25rem;
     margin-top: 1rem;
+    border-left: 3px solid var(--primary-color);
 }
 
 .note-box strong {
-    color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
 /* ===== Footer ===== */
