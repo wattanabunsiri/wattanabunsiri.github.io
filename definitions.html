@@ -78,6 +78,24 @@
                                 <h5>(ค่าตัวแทนทางการเงิน)</h5>
                             </div>
                         </div>
+
+                        <!-- Financial Proxy Details -->
+                        <div class="proxy-details">
+                            <div class="proxy-details-header" onclick="toggleProxyDetails()">
+                                <span class="proxy-icon">💡</span>
+                                <span>ตัวอย่าง Financial Proxy</span>
+                                <span class="proxy-toggle" id="proxyToggle">+</span>
+                            </div>
+                            <div class="proxy-details-content" id="proxyContent">
+                                <ul>
+                                    <li>เพิ่มประสิทธิภาพการทำงาน</li>
+                                    <li>ลดความเสี่ยงในการสูญเสีย/ป้องกันความเสียหาย</li>
+                                    <li>ลดค่าเสียโอกาส</li>
+                                    <li>คุณภาพชีวิตดีขึ้น</li>
+                                    <li>ทักษะความรู้เพิ่มขึ้นจากการอบรม/ประกวด</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -92,6 +110,69 @@
                         <p>การวัดผลการใช้ประโยชน์ที่เกิดขึ้นจากงานวิจัย ในการสนับสนุนและขับเคลื่อนทั้งภาคการเกษตร ภาคอุตสาหกรรม และชุมชน ซึ่งจะนำมาสู่การเปลี่ยนแปลงทางเศรษฐกิจและสังคม ทั้งที่เกิดกับตัวบุคคล หน่วยงาน และประเทศ</p>
                         <div class="highlight-box">
                             <p>ประโยชน์ของ Investment นั้นถือเป็นความสำเร็จที่แสดงถึงความมีคุณค่าของผลงานวิจัยในเนคเทค และที่สำคัญคือเพื่อนำข้อมูลไปประกอบการ</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ประเภทของ Investment -->
+                <div class="definition-card investment-types full-width">
+                    <h2>ประเภทของ Investment</h2>
+                    <div class="card-content">
+                        <div class="investment-type-list">
+                            <div class="investment-type-item">
+                                <div class="type-header">
+                                    <span class="type-number">1</span>
+                                    <h3>Income</h3>
+                                    <span class="type-badge">ดึงจาก PABI อัตโนมัติ</span>
+                                </div>
+                                <div class="type-content">
+                                    <p class="type-desc">การลงทุนเพิ่มที่เงินเข้าในระบบบัญชี สวทช. (รายได้จากโครงการวิจัยพัฒนาและการบริการต่าง ๆ)</p>
+                                    <div class="type-examples">
+                                        <span>การลงทุน In cash</span>
+                                        <span>การบริการเทคนิค/วิชาการ</span>
+                                        <span>โครงการฝึกอบรม</span>
+                                        <span>ทรัพย์สินทางปัญญา</span>
+                                        <span>กองทุน สวทช. (STI)</span>
+                                        <span>ขอรับรองตาม BOI</span>
+                                        <span>ลงทุนเช่าพื้นที่</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="investment-type-item">
+                                <div class="type-header">
+                                    <span class="type-number">2</span>
+                                    <h3>In-kind</h3>
+                                    <span class="type-badge">งาน PABS รายงานบน myImpact</span>
+                                </div>
+                                <div class="type-content">
+                                    <p class="type-desc">การลงทุนในลักษณะที่ไม่อยู่ในรูปตัวเงินและ/หรือเงินไม่เข้า สวทช. ที่เกิดขึ้นจากการทำงานร่วมกับ สวทช.</p>
+                                    <div class="type-examples">
+                                        <span>การลงทุนร่วมที่ระบุใน MOU/สัญญา</span>
+                                        <span>งบสนับสนุนให้หน่วยงานอื่น ๆ</span>
+                                        <span>การสนับสนุนส่งมอบผลงานของโครงการ</span>
+                                        <span>การเป็นสปอนเซอร์จัดงาน/กิจกรรม</span>
+                                        <span>แผนการลงทุนที่ได้รับการอนุมัติ</span>
+                                        <span>งบลงทุนที่โครงการยังดำเนินงานอยู่</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="investment-type-item">
+                                <div class="type-header">
+                                    <span class="type-number">3</span>
+                                    <h3>Investment จากการถ่ายทอดเทคโนโลยี (TT)</h3>
+                                    <span class="type-badge">งาน ERMS รายงานบน myImpact</span>
+                                </div>
+                                <div class="type-content">
+                                    <p class="type-desc">จากการกระตุ้นให้ภาคการผลิต ภาคบริการ และภาคการเกษตรมีกิจกรรม ว และ ท เกิดความเชื่อมั่นและเพิ่มการลงทุนในมิติต่าง ๆ เพื่อสร้างมูลค่าเพิ่มในผลผลิตและบริการ</p>
+                                    <div class="type-examples">
+                                        <span>การลงทุนวิจัยต่อยอด</span>
+                                        <span>การลงทุนในกระบวนการผลิตและบริการ</span>
+                                        <span>การจ้างงานเพิ่ม (ระบุจำนวนคนและมูลค่า)</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -122,5 +203,14 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script>
+        function toggleProxyDetails() {
+            const content = document.getElementById('proxyContent');
+            const toggle = document.getElementById('proxyToggle');
+
+            content.classList.toggle('show');
+            toggle.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

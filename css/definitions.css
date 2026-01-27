@@ -183,6 +183,213 @@
     margin: 0;
 }
 
+.benefit-item h5 {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    font-weight: 400;
+    margin: 0.25rem 0 0 0;
+}
+
+/* Proxy Details Expandable Section */
+.proxy-details {
+    margin-top: 2rem;
+    background: var(--bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.proxy-details-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.proxy-details-header:hover {
+    background: var(--cream);
+}
+
+.proxy-icon {
+    font-size: 1.25rem;
+}
+
+.proxy-details-header > span:nth-child(2) {
+    flex: 1;
+    font-weight: 500;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.proxy-toggle {
+    width: 28px;
+    height: 28px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.proxy-toggle.active {
+    transform: rotate(45deg);
+}
+
+.proxy-details-content {
+    display: none;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    animation: slideDown 0.3s ease;
+}
+
+.proxy-details-content.show {
+    display: block;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.proxy-details-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+}
+
+.proxy-details-content ul li {
+    background: var(--white);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.proxy-details-content ul li::before {
+    content: '✓';
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Investment Types Section */
+.definition-card.investment-types h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.investment-type-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.investment-type-item {
+    background: var(--bg-color);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.investment-type-item:hover {
+    box-shadow: 0 4px 20px rgba(93, 78, 55, 0.1);
+}
+
+.type-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: var(--cream);
+    flex-wrap: wrap;
+}
+
+.type-number {
+    width: 32px;
+    height: 32px;
+    background: var(--primary-color);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.type-header h3 {
+    flex: 1;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.type-badge {
+    background: var(--accent-color);
+    color: var(--white);
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.type-content {
+    padding: 1.25rem 1.5rem;
+}
+
+.type-desc {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0 0 1rem 0;
+}
+
+.type-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.type-examples span {
+    background: var(--white);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+}
+
+.type-examples span:hover {
+    background: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
 /* Back Link */
 .back-link {
     display: flex;
@@ -295,5 +502,38 @@
 
     .benefit-item p {
         font-size: 0.85rem;
+    }
+
+    .proxy-details-content ul {
+        grid-template-columns: 1fr;
+    }
+
+    .proxy-details-content ul li {
+        font-size: 0.85rem;
+    }
+
+    .type-header {
+        padding: 1rem;
+    }
+
+    .type-header h3 {
+        font-size: 1rem;
+        width: 100%;
+        order: 2;
+        margin-top: 0.5rem;
+    }
+
+    .type-badge {
+        order: 3;
+        margin-top: 0.5rem;
+    }
+
+    .type-content {
+        padding: 1rem;
+    }
+
+    .type-examples span {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.75rem;
     }
 }
