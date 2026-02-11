@@ -360,13 +360,15 @@ footer {
     background-color: var(--white);
     border-top: 1px solid var(--border-color);
     text-align: center;
-    padding: 1.5rem;
+    padding: 1.5rem 2rem;
     margin-top: auto;
 }
 
 footer p {
     color: var(--text-light);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    margin: 0.25rem 0;
+    letter-spacing: 0.5px;
 }
 
 /* ===== Responsive Design ===== */
