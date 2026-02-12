@@ -162,6 +162,7 @@ function sendToGoogleSheet() {
     const organization = sessionStorage.getItem('nectec_organization') || 'unknown';
 
     const data = {
+        type: 'checklist',
         organization: organization,
         employeeId: employeeId,
         a1: document.getElementById('a1')?.checked || false,
