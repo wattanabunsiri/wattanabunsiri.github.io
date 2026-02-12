@@ -12,6 +12,46 @@
     font-weight: 600;
 }
 
+/* Project Info Section */
+.project-info {
+    border-left: 4px solid var(--primary-color);
+}
+
+.project-info .form-row {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.project-info .form-row:last-child {
+    border-bottom: none;
+}
+
+.project-info label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.project-info input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.project-info input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(93, 78, 55, 0.1);
+}
+
+.required {
+    color: #c0392b;
+}
+
 /* Form Sections */
 .form-section {
     background: var(--white);
@@ -374,6 +414,14 @@
     margin: 0;
     padding: 0.875rem 1.25rem;
     font-weight: 600;
+}
+
+.report-section.project-info-report {
+    border: 2px solid var(--primary-color);
+}
+
+.report-section.project-info-report h3 {
+    background: var(--primary-color);
 }
 
 .report-section-content {

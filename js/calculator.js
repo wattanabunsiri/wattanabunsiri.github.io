@@ -1,3 +1,6 @@
+// Google Sheet Web App URL (same as checklist)
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzl6F5Xxi_aa5GMly81j-NZ9Hbe3VxnyBeKzC3X7s0IhqE9mci8SNQDlCdCGfcpgbxf/exec';
+
 // Helper function to get numeric value
 function getVal(id) {
     const val = parseFloat(document.getElementById(id)?.value) || 0;
@@ -437,6 +440,17 @@ function generateReport() {
     });
     html += '<div class="report-date">วันที่ออกรายงาน: ' + dateStr + '</div>';
 
+    // Project Info
+    const projectId = document.getElementById('projectId')?.value || '-';
+    const projectName = document.getElementById('projectName')?.value || '-';
+
+    html += '<div class="report-section project-info-report">';
+    html += '<h3>ข้อมูลโครงการ</h3>';
+    html += '<div class="report-section-content">';
+    html += '<div class="report-item"><span class="label">รหัสโครงการ</span><span class="value">' + projectId + '</span></div>';
+    html += '<div class="report-item"><span class="label">ชื่อโครงการ</span><span class="value">' + projectName + '</span></div>';
+    html += '</div></div>';
+
     // Check report type
     const reportYearly = document.getElementById('a1');
     const report5Years = document.getElementById('a2');
@@ -506,6 +520,76 @@ function generateReport() {
     // Show modal
     document.getElementById('reportContent').innerHTML = html;
     document.getElementById('reportModal').style.display = 'flex';
+
+    // Send data to Google Sheets
+    sendPreImpactLog();
+}
+
+// Send Pre-Impact data to Google Sheets
+function sendPreImpactLog() {
+    if (!GOOGLE_SHEET_URL) {
+        console.log('Google Sheet URL not configured');
+        return;
+    }
+
+    const employeeId = sessionStorage.getItem('nectec_employee_id') || 'unknown';
+    const organization = sessionStorage.getItem('nectec_organization') || 'unknown';
+
+    // Get report type
+    const reportYearly = document.getElementById('a1');
+    const report5Years = document.getElementById('a2');
+    let reportType = '';
+    if (reportYearly && reportYearly.checked) {
+        reportType = 'รายปี';
+    } else if (report5Years && report5Years.checked) {
+        reportType = '5 ปี';
+    }
+
+    // Get section values (result fields)
+    const getSectionValue = (sectionId, resultFieldId) => {
+        const checkbox = document.getElementById('section' + sectionId);
+        if (checkbox && checkbox.checked) {
+            const value = document.getElementById(resultFieldId)?.value || '0';
+            return value.replace(/,/g, '');
+        }
+        return '';
+    };
+
+    const data = {
+        type: 'preimpact',
+        organization: organization,
+        employeeId: employeeId,
+        projectId: document.getElementById('projectId')?.value || '',
+        projectName: document.getElementById('projectName')?.value || '',
+        reportType: reportType,
+        sectionB: getSectionValue('B', 'b8'),   // ลดการนำเข้า
+        sectionC: getSectionValue('C', 'c8'),   // กำไร/รายได้เพิ่ม
+        sectionD: getSectionValue('D', 'd6'),   // ประหยัดค่าใช้จ่าย
+        sectionE: getSectionValue('E', 'e12'),  // ประสิทธิภาพเพิ่ม
+        sectionF: getSectionValue('F', 'f6'),   // ลดความเสี่ยง
+        sectionG: getSectionValue('G', 'g5'),   // ทักษะเพิ่ม
+        sectionH: getSectionValue('H', 'h4'),   // ลงทุนวิจัยต่อยอด
+        sectionI: getSectionValue('I', 'i4'),   // ลงทุนผลิต/บริการ
+        sectionJ: getSectionValue('J', 'j5'),   // จ้างงานเพิ่ม
+        sectionK: getSectionValue('K', 'k4'),   // อื่นๆ
+        totalImpact: (document.getElementById('totalImpact')?.value || '0').replace(/,/g, ''),
+        totalInvestment: (document.getElementById('totalInvestment')?.value || '0').replace(/,/g, '')
+    };
+
+    fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        console.log('Pre-Impact data sent to Google Sheet');
+    })
+    .catch(error => {
+        console.error('Error sending to Google Sheet:', error);
+    });
 }
 
 // Close Report

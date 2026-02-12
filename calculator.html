@@ -6,8 +6,103 @@
     <title>IMPACT & INVESTMENT EVALUATION</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/calculator.css">
+    <link rel="stylesheet" href="css/auth.css">
 </head>
 <body>
+    <!-- Authentication Overlay -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <div class="auth-header">
+                <div class="auth-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h2>ยืนยันตัวตน</h2>
+                <p>กรุณากรอกรหัสพนักงานเพื่อเข้าใช้งาน</p>
+            </div>
+            <form class="auth-form" onsubmit="authSystem.handleAuthSubmit(event)">
+                <div class="auth-input-group">
+                    <label>หน่วยงาน</label>
+                    <div class="custom-select-wrapper">
+                        <select id="organization" class="hidden-select">
+                            <option value="NECTEC">NECTEC</option>
+                        </select>
+                        <div class="custom-select" id="customSelect">
+                            <div class="custom-select-trigger">
+                                <div class="selected-content">
+                                    <svg class="org-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 21h18"></path>
+                                        <path d="M9 8h1"></path>
+                                        <path d="M9 12h1"></path>
+                                        <path d="M9 16h1"></path>
+                                        <path d="M14 8h1"></path>
+                                        <path d="M14 12h1"></path>
+                                        <path d="M14 16h1"></path>
+                                        <path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path>
+                                    </svg>
+                                    <span id="selectedText">NECTEC</span>
+                                </div>
+                                <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                            <div class="custom-options">
+                                <div class="custom-option selected" data-value="NECTEC">
+                                    <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    <span>NECTEC</span>
+                                </div>
+                                <!-- เพิ่มหน่วยงานอื่นได้ที่นี่ -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="auth-input-group">
+                    <label for="employeeId">รหัสพนักงาน</label>
+                    <input type="text" id="employeeId" placeholder="เช่น 12345" autocomplete="off">
+                </div>
+                <div class="auth-error" id="authError"></div>
+                <button type="submit" class="auth-btn">เข้าใช้งาน</button>
+            </form>
+            <div class="auth-footer">
+                <a href="index.html">← กลับหน้าหลัก</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checklist Required Overlay -->
+    <div class="auth-overlay hidden" id="checklistRequiredOverlay">
+        <div class="auth-modal">
+            <div class="auth-header">
+                <div class="auth-icon" style="background: linear-gradient(135deg, #e67e22, #d35400);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 11l3 3L22 4"></path>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                    </svg>
+                </div>
+                <h2>กรุณาทำ Checklist ก่อน</h2>
+                <p>คุณต้องทำ Checklist ให้เรียบร้อยก่อนจึงจะสามารถใช้เครื่องคำนวณได้</p>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <a href="checklist.html" class="auth-btn" style="text-align: center; text-decoration: none;">
+                    ไปทำ Checklist
+                </a>
+                <a href="index.html" style="text-align: center; color: var(--text-light); text-decoration: none; font-size: 0.9rem;">
+                    ← กลับหน้าหลัก
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Info Bar -->
+    <div class="user-info-bar hidden" id="userInfoBar">
+        <span class="user-id">หน่วยงาน: <strong id="userOrgDisplay"></strong> | รหัสพนักงาน: <strong id="userIdDisplay"></strong></span>
+        <button class="btn-logout" onclick="authSystem.logout()">ออกจากระบบ</button>
+    </div>
+
     <header>
         <div class="header-container">
             <div class="logo">
@@ -29,6 +124,23 @@
             <h1>การประเมิน Pre-Impact/Investment</h1>
 
             <form id="impactForm">
+                <!-- Project Info -->
+                <section class="form-section project-info">
+                    <h2>ข้อมูลโครงการ</h2>
+                    <div class="form-row">
+                        <label for="projectId">รหัสโครงการ <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="text" id="projectId" placeholder="เช่น P-12-12345" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <label for="projectName">ชื่อโครงการ <span class="required">*</span></label>
+                        <div class="input-group">
+                            <input type="text" id="projectName" placeholder="กรอกชื่อโครงการ" required>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- Section A -->
                 <section class="form-section">
                     <h2>เลือกแนวทางการรายงาน</h2>
@@ -807,6 +919,7 @@
         </div>
     </footer>
 
+    <script src="js/auth.js"></script>
     <script src="js/calculator.js"></script>
     <script src="js/main.js"></script>
 </body>
