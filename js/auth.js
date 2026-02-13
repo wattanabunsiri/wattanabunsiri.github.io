@@ -110,40 +110,39 @@
     function handleAuthSubmit(e) {
         e.preventDefault();
 
-        const orgSelect = document.getElementById('organization');
         const input = document.getElementById('employeeId');
         const errorEl = document.getElementById('authError');
-        const organization = orgSelect ? orgSelect.value : 'NECTEC';
         const employeeId = input.value.trim();
 
-        const validation = validateEmployeeId(employeeId);
+        // Get organization from custom select or hidden select
+        let organization = 'NECTEC';
+        const selectedText = document.getElementById('selectedText');
+        const hiddenSelect = document.getElementById('organization');
 
-        if (!validation.valid) {
-            errorEl.textContent = validation.message;
-            errorEl.classList.add('show');
-            input.focus();
-            return;
+        if (selectedText && selectedText.textContent) {
+            organization = selectedText.textContent.trim();
+        } else if (hiddenSelect) {
+            organization = hiddenSelect.value;
+        }
+
+        // Skip validation for Guest
+        if (organization !== 'Guest') {
+            const validation = validateEmployeeId(employeeId);
+
+            if (!validation.valid) {
+                errorEl.textContent = validation.message;
+                errorEl.classList.add('show');
+                input.focus();
+                return;
+            }
         }
 
         // Store and proceed
         setOrganization(organization);
-        setEmployeeId(employeeId);
+        setEmployeeId(organization === 'Guest' ? 'Guest' : employeeId);
 
-        const overlay = document.getElementById('authOverlay');
-        const userInfoBar = document.getElementById('userInfoBar');
-        const userIdDisplay = document.getElementById('userIdDisplay');
-        const userOrgDisplay = document.getElementById('userOrgDisplay');
-
-        overlay.classList.add('hidden');
-        if (userInfoBar) {
-            userInfoBar.classList.remove('hidden');
-            if (userOrgDisplay) {
-                userOrgDisplay.textContent = organization;
-            }
-            if (userIdDisplay) {
-                userIdDisplay.textContent = employeeId;
-            }
-        }
+        // Redirect to home page after login
+        window.location.href = 'index.html';
     }
 
     // Expose functions globally
@@ -192,6 +191,16 @@
                 // Update selected state
                 options.forEach(opt => opt.classList.remove('selected'));
                 this.classList.add('selected');
+
+                // Show/hide employee ID field based on selection
+                const employeeIdGroup = document.getElementById('employeeIdGroup');
+                if (employeeIdGroup) {
+                    if (value === 'Guest') {
+                        employeeIdGroup.style.display = 'none';
+                    } else {
+                        employeeIdGroup.style.display = 'block';
+                    }
+                }
 
                 // Close dropdown
                 customSelect.classList.remove('open');

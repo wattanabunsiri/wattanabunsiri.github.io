@@ -28,6 +28,7 @@
                     <div class="custom-select-wrapper">
                         <select id="organization" class="hidden-select">
                             <option value="NECTEC">NECTEC</option>
+                            <option value="Guest">Guest</option>
                         </select>
                         <div class="custom-select" id="customSelect">
                             <div class="custom-select-trigger">
@@ -55,18 +56,17 @@
                                     </svg>
                                     <span>NECTEC</span>
                                 </div>
-                                <!-- เพิ่มหน่วยงานอื่นได้ที่นี่ -->
-                                <!-- <div class="custom-option" data-value="OTHER">
+                                <div class="custom-option" data-value="Guest">
                                     <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
-                                    <span>หน่วยงานอื่น</span>
-                                </div> -->
+                                    <span>Guest</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="auth-input-group">
+                <div class="auth-input-group" id="employeeIdGroup">
                     <label for="employeeId">รหัสพนักงาน</label>
                     <input type="text" id="employeeId" placeholder="เช่น 12345" autocomplete="off">
                 </div>
