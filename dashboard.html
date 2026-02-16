@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - IMPACT & INVESTMENT EVALUATION</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="index.html">IMPACT & INVESTMENT EVALUATION</a>
+            </div>
+            <button class="menu-toggle" aria-label="เปิดเมนู">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="calculator.html">Self Assessment</a></li>
+                    <li><a href="manual.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="dashboard-page">
+            <h1>Dashboard</h1>
+            <p class="dashboard-subtitle">สถิติการใช้งานระบบ</p>
+
+            <!-- Stats Cards -->
+            <div class="stats-cards" id="statsCards">
+                <div class="stat-card total">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="totalUsers">-</span>
+                        <span class="stat-label">ผู้ใช้งานทั้งหมด</span>
+                    </div>
+                </div>
+                <!-- Organization cards will be added dynamically -->
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <label for="orgFilter">กรองตามหน่วยงาน:</label>
+                <select id="orgFilter">
+                    <option value="all">ทั้งหมด</option>
+                    <!-- Options will be added dynamically -->
+                </select>
+            </div>
+
+            <!-- Chart Section -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>จำนวนผู้ใช้งาน</h3>
+                    <div class="chart-filters">
+                        <button class="filter-btn active" data-period="daily">รายวัน</button>
+                        <button class="filter-btn" data-period="monthly">รายเดือน</button>
+                        <button class="filter-btn" data-period="yearly">รายปี</button>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="usageChart"></canvas>
+                </div>
+                <div class="chart-loading" id="chartLoading">
+                    <span>กำลังโหลดข้อมูล...</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© DEVELOPED BY THANAPAT WATTANABUNSIRI (BEDROCK ANALYTICS.AI)</p>
+            <p>© CONCEPT & REQUIREMENTS BY NAPAT WATTANABUNSIRI (NECTEC)</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

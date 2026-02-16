@@ -377,6 +377,74 @@ footer p {
     letter-spacing: 0.5px;
 }
 
+/* ===== Simple Stats (Home Page) ===== */
+.simple-stats {
+    margin-top: 2rem;
+}
+
+.total-users-card {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--white);
+    box-shadow: 0 4px 20px rgba(93, 78, 55, 0.2);
+}
+
+.total-icon {
+    font-size: 3rem;
+    opacity: 0.9;
+}
+
+.total-info {
+    flex: 1;
+}
+
+.total-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.total-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.view-more {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.view-more:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .total-users-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .total-number {
+        font-size: 2rem;
+    }
+
+    .view-more {
+        width: 100%;
+        text-align: center;
+    }
+}
+
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
     .header-container {

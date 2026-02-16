@@ -1,5 +1,5 @@
 // Google Sheet Web App URL (same as checklist)
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzl6F5Xxi_aa5GMly81j-NZ9Hbe3VxnyBeKzC3X7s0IhqE9mci8SNQDlCdCGfcpgbxf/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzylM96oiM837gDntJnqvfR3t7GEKb8OBaD2VdFfUaQ93PQ0j0Hrc3EHiqayIgHWsQg/exec';
 
 // Helper function to get numeric value
 function getVal(id) {
@@ -521,6 +521,9 @@ function generateReport() {
     document.getElementById('reportContent').innerHTML = html;
     document.getElementById('reportModal').style.display = 'flex';
 
+    // Remove drafts for this project
+    removeDraftsForProject(projectId);
+
     // Send data to Google Sheets
     sendPreImpactLog();
 }
@@ -604,10 +607,271 @@ function printReport() {
 
 // Close modal when clicking outside
 window.onclick = function(event) {
-    const modal = document.getElementById('reportModal');
-    if (event.target === modal) {
+    const reportModal = document.getElementById('reportModal');
+    const draftModal = document.getElementById('draftModal');
+    if (event.target === reportModal) {
         closeReport();
     }
+    if (event.target === draftModal) {
+        closeDraftModal();
+    }
+}
+
+// ===== Draft Save/Load Feature =====
+
+const DRAFT_PREFIX = 'draft-';
+
+// Save current form as draft
+function saveDraft() {
+    const projectId = document.getElementById('projectId')?.value?.trim();
+    if (!projectId) {
+        alert('กรุณากรอกรหัสโครงการก่อนบันทึกแบบร่าง');
+        document.getElementById('projectId')?.focus();
+        return;
+    }
+
+    const now = new Date();
+    const timestamp = now.getFullYear()
+        + String(now.getMonth() + 1).padStart(2, '0')
+        + String(now.getDate()).padStart(2, '0')
+        + '-'
+        + String(now.getHours()).padStart(2, '0')
+        + String(now.getMinutes()).padStart(2, '0')
+        + String(now.getSeconds()).padStart(2, '0');
+
+    const key = DRAFT_PREFIX + projectId + '-' + timestamp;
+
+    // Collect report type
+    const a1 = document.getElementById('a1');
+    const a2 = document.getElementById('a2');
+    let reportType = '';
+    if (a1 && a1.checked) reportType = 'yearly';
+    else if (a2 && a2.checked) reportType = '5years';
+
+    // Collect section checkboxes
+    const sectionKeys = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+    const sections = {};
+    sectionKeys.forEach(s => {
+        const cb = document.getElementById('section' + s);
+        sections[s] = cb ? cb.checked : false;
+    });
+
+    // Collect all field values
+    const fields = {};
+    const form = document.getElementById('impactForm');
+    if (form) {
+        form.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
+            if (input.id && input.id !== 'projectId' && input.id !== 'projectName') {
+                fields[input.id] = input.value;
+            }
+        });
+        form.querySelectorAll('select').forEach(select => {
+            if (select.id) {
+                fields[select.id] = select.selectedIndex;
+            }
+        });
+    }
+
+    const draft = {
+        projectId: projectId,
+        projectName: document.getElementById('projectName')?.value || '',
+        reportType: reportType,
+        sections: sections,
+        fields: fields,
+        savedAt: now.toISOString()
+    };
+
+    localStorage.setItem(key, JSON.stringify(draft));
+    alert('บันทึกแบบร่างเรียบร้อยแล้ว');
+}
+
+// Show draft list modal
+function showDraftList() {
+    const drafts = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith(DRAFT_PREFIX)) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key));
+                drafts.push({ key: key, data: data });
+            } catch (e) {
+                // skip invalid entries
+            }
+        }
+    }
+
+    const container = document.getElementById('draftListContent');
+    if (!container) return;
+
+    if (drafts.length === 0) {
+        container.innerHTML = '<div class="draft-empty">ไม่มีแบบร่างที่บันทึกไว้</div>';
+    } else {
+        // Sort by savedAt descending
+        drafts.sort((a, b) => (b.data.savedAt || '').localeCompare(a.data.savedAt || ''));
+
+        let html = '<div class="draft-list">';
+        drafts.forEach(draft => {
+            const d = draft.data;
+            const savedDate = d.savedAt ? new Date(d.savedAt).toLocaleString('th-TH', {
+                year: 'numeric', month: 'short', day: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            }) : '-';
+
+            html += '<div class="draft-item">';
+            html += '<div class="draft-item-info">';
+            html += '<div class="draft-item-title">' + escapeHtml(d.projectId || '-') + '</div>';
+            html += '<div class="draft-item-name">' + escapeHtml(d.projectName || '-') + '</div>';
+            html += '<div class="draft-item-date">' + savedDate + '</div>';
+            html += '</div>';
+            html += '<div class="draft-item-actions">';
+            html += '<button class="btn-draft-action btn-load" onclick="loadDraft(\'' + escapeHtml(draft.key) + '\')">โหลด</button>';
+            html += '<button class="btn-draft-action btn-delete" onclick="deleteDraft(\'' + escapeHtml(draft.key) + '\')">ลบ</button>';
+            html += '</div>';
+            html += '</div>';
+        });
+        html += '</div>';
+        container.innerHTML = html;
+    }
+
+    document.getElementById('draftModal').style.display = 'flex';
+}
+
+// Escape HTML to prevent XSS
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
+// Load a draft into the form
+function loadDraft(key) {
+    const raw = localStorage.getItem(key);
+    if (!raw) {
+        alert('ไม่พบแบบร่างนี้');
+        return;
+    }
+
+    let draft;
+    try {
+        draft = JSON.parse(raw);
+    } catch (e) {
+        alert('ข้อมูลแบบร่างไม่ถูกต้อง');
+        return;
+    }
+
+    // Set project info
+    const projectIdEl = document.getElementById('projectId');
+    const projectNameEl = document.getElementById('projectName');
+    if (projectIdEl) projectIdEl.value = draft.projectId || '';
+    if (projectNameEl) projectNameEl.value = draft.projectName || '';
+
+    // Set report type
+    const a1 = document.getElementById('a1');
+    const a2 = document.getElementById('a2');
+    if (a1) a1.checked = (draft.reportType === 'yearly');
+    if (a2) a2.checked = (draft.reportType === '5years');
+
+    // Reset all sections first
+    const sectionKeys = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K'];
+    sectionKeys.forEach(s => {
+        const cb = document.getElementById('section' + s);
+        if (cb) {
+            cb.checked = false;
+            cb.disabled = false;
+        }
+        const wrapper = document.getElementById('section' + s + 'Wrapper');
+        if (wrapper) wrapper.classList.remove('disabled');
+        const content = document.getElementById('content' + s);
+        if (content) content.style.display = 'none';
+    });
+
+    // Restore field values
+    const form = document.getElementById('impactForm');
+    if (form && draft.fields) {
+        // Restore selects first (by selectedIndex)
+        form.querySelectorAll('select').forEach(select => {
+            if (select.id && draft.fields[select.id] !== undefined) {
+                select.selectedIndex = draft.fields[select.id];
+            }
+        });
+        // Restore inputs
+        form.querySelectorAll('input[type="number"], input[type="text"]').forEach(input => {
+            if (input.id && input.id !== 'projectId' && input.id !== 'projectName' && draft.fields[input.id] !== undefined) {
+                input.value = draft.fields[input.id];
+            }
+        });
+    }
+
+    // Restore section checkboxes and toggle visibility
+    if (draft.sections) {
+        // Handle B first for exclusive logic
+        if (draft.sections['B']) {
+            const cbB = document.getElementById('sectionB');
+            if (cbB) {
+                cbB.checked = true;
+                document.getElementById('contentB').style.display = 'block';
+                toggleExclusive('B');
+            }
+        }
+
+        sectionKeys.forEach(s => {
+            if (s === 'B') return; // already handled
+            if (draft.sections[s]) {
+                const cb = document.getElementById('section' + s);
+                if (cb && !cb.disabled) {
+                    cb.checked = true;
+                    const content = document.getElementById('content' + s);
+                    if (content) content.style.display = 'block';
+                }
+            }
+        });
+    }
+
+    // Re-check "other" notes for selects
+    const selectIds = ['b6', 'c6', 'd4', 'e10', 'f4', 'g3', 'h2', 'i2', 'j3', 'k2'];
+    selectIds.forEach(id => checkOther(id));
+
+    // Re-run calculations
+    calculateB();
+    calculateC();
+    calculateD();
+    calculateE();
+    calculateF();
+    calculateG();
+    calculateH();
+    calculateI();
+    calculateJ();
+    calculateK();
+    calculateTotal();
+
+    closeDraftModal();
+    alert('โหลดแบบร่างเรียบร้อยแล้ว');
+}
+
+// Delete a draft
+function deleteDraft(key) {
+    if (!confirm('ต้องการลบแบบร่างนี้หรือไม่?')) return;
+    localStorage.removeItem(key);
+    showDraftList(); // refresh list
+}
+
+// Remove drafts matching current projectId after report generation
+function removeDraftsForProject(projectId) {
+    if (!projectId) return;
+    const prefix = DRAFT_PREFIX + projectId + '-';
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.startsWith(prefix)) {
+            keysToRemove.push(key);
+        }
+    }
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+}
+
+// Close draft modal
+function closeDraftModal() {
+    document.getElementById('draftModal').style.display = 'none';
 }
 
 // Initialize

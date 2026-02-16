@@ -3,7 +3,7 @@
 const CHECKLIST_KEY = 'nectec_checklist_completed';
 
 // Google Sheet Web App URL - ใส่ URL ที่ได้จาก Google Apps Script ที่นี่
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzl6F5Xxi_aa5GMly81j-NZ9Hbe3VxnyBeKzC3X7s0IhqE9mci8SNQDlCdCGfcpgbxf/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzylM96oiM837gDntJnqvfR3t7GEKb8OBaD2VdFfUaQ93PQ0j0Hrc3EHiqayIgHWsQg/exec';
 
 // Toggle A2 - Show link button when checked
 function toggleA2() {

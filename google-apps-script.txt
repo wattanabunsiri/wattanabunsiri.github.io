@@ -1,0 +1,203 @@
+function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    if (data.type === 'checklist') {
+      var sheet = ss.getSheetByName('Checklist');
+      if (!sheet) {
+        sheet = ss.insertSheet('Checklist');
+        sheet.appendRow(['Organization', 'EmployeeId', 'Timestamp', 'A1', 'A2', 'B1', 'B2', 'B3', 'B4', 'B5']);
+      }
+
+      sheet.appendRow([
+        data.organization || '',
+        data.employeeId || '',
+        new Date(),
+        data.a1 || false,
+        data.a2 || false,
+        data.b1 || false,
+        data.b2 || false,
+        data.b3 || false,
+        data.b4 || false,
+        data.b5 || false
+      ]);
+
+    } else if (data.type === 'preimpact') {
+      var sheet = ss.getSheetByName('PreImpact');
+      if (!sheet) {
+        sheet = ss.insertSheet('PreImpact');
+        sheet.appendRow(['Organization', 'EmployeeId', 'Timestamp', 'ProjectName', 'ProjectCode', 'ResearcherName', 'Result']);
+      }
+
+      sheet.appendRow([
+        data.organization || '',
+        data.employeeId || '',
+        new Date(),
+        data.projectName || '',
+        data.projectCode || '',
+        data.researcherName || '',
+        data.result || ''
+      ]);
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({success: true}))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({success: false, error: error.toString()}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  var action = e.parameter.action;
+
+  if (action === 'dashboard') {
+    return getDashboardData();
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({error: 'Invalid action'}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+// แปลงวันที่แบบไทย (13/2/2569 11:23) หรือ Date object
+function parseThaiDate(value) {
+  if (!value) return new Date();
+
+  // ถ้าเป็น Date object อยู่แล้ว
+  if (value instanceof Date) {
+    return value;
+  }
+
+  // ถ้าเป็น string รูปแบบ DD/M/YYYY หรือ DD/M/YYYY HH:mm
+  var str = value.toString();
+  var match = str.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if (match) {
+    var day = parseInt(match[1]);
+    var month = parseInt(match[2]) - 1;
+    var year = parseInt(match[3]);
+
+    // ถ้าปีมากกว่า 2500 แสดงว่าเป็นปี พ.ศ.
+    if (year > 2500) {
+      year = year - 543;
+    }
+
+    return new Date(year, month, day);
+  }
+
+  return new Date();
+}
+
+function getDashboardData() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var result = {
+    total: 0,
+    organizations: {},
+    daily: { labels: [], data: {} },
+    monthly: { labels: [], data: {} },
+    yearly: { labels: [], data: {} }
+  };
+
+  var allEntries = [];
+
+  var checklistSheet = ss.getSheetByName('Checklist');
+  if (checklistSheet && checklistSheet.getLastRow() > 1) {
+    // Column A = Organization, Column C = Timestamp
+    var checklistData = checklistSheet.getRange(2, 1, checklistSheet.getLastRow() - 1, 3).getValues();
+    checklistData.forEach(function(row) {
+      if (row[0]) {
+        var timestamp = parseThaiDate(row[2]);
+        allEntries.push({
+          organization: row[0] || 'Unknown',
+          timestamp: timestamp
+        });
+      }
+    });
+  }
+
+  // นับจำนวนทั้งหมดและแยกตามหน่วยงาน
+  result.total = allEntries.length;
+
+  allEntries.forEach(function(entry) {
+    var org = entry.organization;
+    if (!result.organizations[org]) {
+      result.organizations[org] = 0;
+    }
+    result.organizations[org]++;
+  });
+
+  var today = new Date();
+  var orgList = Object.keys(result.organizations);
+
+  // ===== Daily (7 วันย้อนหลัง) =====
+  var dailyLabels = [];
+  var dailyData = {};
+  orgList.forEach(function(org) { dailyData[org] = []; });
+
+  for (var i = 6; i >= 0; i--) {
+    var date = new Date(today);
+    date.setDate(date.getDate() - i);
+    var dateStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'd MMM');
+    dailyLabels.push(dateStr);
+
+    orgList.forEach(function(org) {
+      var count = allEntries.filter(function(entry) {
+        var entryDate = entry.timestamp;
+        return entry.organization === org &&
+               entryDate.getDate() === date.getDate() &&
+               entryDate.getMonth() === date.getMonth() &&
+               entryDate.getFullYear() === date.getFullYear();
+      }).length;
+      dailyData[org].push(count);
+    });
+  }
+  result.daily = { labels: dailyLabels, data: dailyData };
+
+  // ===== Monthly (6 เดือนย้อนหลัง) =====
+  var monthlyLabels = [];
+  var monthlyData = {};
+  orgList.forEach(function(org) { monthlyData[org] = []; });
+
+  for (var i = 5; i >= 0; i--) {
+    var date = new Date(today);
+    date.setMonth(date.getMonth() - i);
+    var monthStr = Utilities.formatDate(date, Session.getScriptTimeZone(), 'MMM yy');
+    monthlyLabels.push(monthStr);
+
+    orgList.forEach(function(org) {
+      var count = allEntries.filter(function(entry) {
+        var entryDate = entry.timestamp;
+        return entry.organization === org &&
+               entryDate.getMonth() === date.getMonth() &&
+               entryDate.getFullYear() === date.getFullYear();
+      }).length;
+      monthlyData[org].push(count);
+    });
+  }
+  result.monthly = { labels: monthlyLabels, data: monthlyData };
+
+  // ===== Yearly (3 ปีย้อนหลัง) =====
+  var yearlyLabels = [];
+  var yearlyData = {};
+  orgList.forEach(function(org) { yearlyData[org] = []; });
+
+  for (var i = 2; i >= 0; i--) {
+    var year = today.getFullYear() - i;
+    var thaiYear = year + 543;
+    yearlyLabels.push('ปี ' + thaiYear);
+
+    orgList.forEach(function(org) {
+      var count = allEntries.filter(function(entry) {
+        var entryDate = entry.timestamp;
+        return entry.organization === org &&
+               entryDate.getFullYear() === year;
+      }).length;
+      yearlyData[org].push(count);
+    });
+  }
+  result.yearly = { labels: yearlyLabels, data: yearlyData };
+
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}
