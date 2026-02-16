@@ -3,7 +3,7 @@
 const CHECKLIST_KEY = 'nectec_checklist_completed';
 
 // Google Sheet Web App URL - ใส่ URL ที่ได้จาก Google Apps Script ที่นี่
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzylM96oiM837gDntJnqvfR3t7GEKb8OBaD2VdFfUaQ93PQ0j0Hrc3EHiqayIgHWsQg/exec';
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzl6F5Xxi_aa5GMly81j-NZ9Hbe3VxnyBeKzC3X7s0IhqE9mci8SNQDlCdCGfcpgbxf/exec';
 
 // Toggle A2 - Show link button when checked
 function toggleA2() {
@@ -61,8 +61,8 @@ function checkCompletion() {
 
     // Section B: at least one must be checked
     const sectionBComplete = (b1 && b1.checked) || (b2 && b2.checked) ||
-                             (b3 && b3.checked) || (b4 && b4.checked) ||
-                             (b5 && b5.checked);
+        (b3 && b3.checked) || (b4 && b4.checked) ||
+        (b5 && b5.checked);
 
     const isComplete = sectionAComplete && sectionBComplete;
 
@@ -106,8 +106,8 @@ function showIncompleteMessage(e) {
     const b4 = document.getElementById('b4');
     const b5 = document.getElementById('b5');
     const sectionBComplete = (b1 && b1.checked) || (b2 && b2.checked) ||
-                             (b3 && b3.checked) || (b4 && b4.checked) ||
-                             (b5 && b5.checked);
+        (b3 && b3.checked) || (b4 && b4.checked) ||
+        (b5 && b5.checked);
 
     if (!sectionBComplete) {
         message += '❌ หมวด 2: ลักษณะของผลงาน/บริการ - ต้องเลือกอย่างน้อย 1 ข้อ\n';
@@ -135,10 +135,10 @@ function updateProgress(sectionAComplete, sectionBComplete) {
 }
 
 // Initialize on page load
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Add change listeners to all checkboxes
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    checkboxes.forEach(function(checkbox) {
+    checkboxes.forEach(function (checkbox) {
         checkbox.addEventListener('change', checkCompletion);
     });
 
@@ -161,6 +161,10 @@ function sendToGoogleSheet() {
     const employeeId = sessionStorage.getItem('nectec_employee_id') || 'unknown';
     const organization = sessionStorage.getItem('nectec_organization') || 'unknown';
 
+    console.log('Sending to Google Sheet:');
+    console.log('employeeId:', employeeId);
+    console.log('organization:', organization);
+
     const data = {
         type: 'checklist',
         organization: organization,
@@ -174,17 +178,20 @@ function sendToGoogleSheet() {
         b5: document.getElementById('b5')?.checked || false
     };
 
+    const jsonBody = JSON.stringify(data);
+    console.log('JSON being sent:', jsonBody);
+
     return fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
-        body: JSON.stringify(data)
+        body: jsonBody
     })
-    .then(() => {
-        console.log('Data sent to Google Sheet');
-    })
-    .catch(error => {
-        console.error('Error sending to Google Sheet:', error);
-    });
+        .then(() => {
+            console.log('Data sent to Google Sheet');
+        })
+        .catch(error => {
+            console.error('Error sending to Google Sheet:', error);
+        });
 }
 
 // Handle calculator button click
